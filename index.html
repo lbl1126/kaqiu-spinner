@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>卡丘大转盘</title>
+  <link rel="icon" href="icon.jpg" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="layout-top layout-compact">
+  <div class="app">
+    <div class="help-mask" id="help-mask">
+      <div class="help-card" role="dialog" aria-labelledby="help-title">
+        <img class="help-bg" src="icon.jpg" alt="" />
+        <div class="help-copy">
+          <h2 id="help-title">卡丘大转盘</h2>
+          <p>点击START开转</p>
+          <p>点击STOP停止喵</p>
+          <p>点击角色头像可以换人喵</p>
+          <button type="button" class="help-close" id="help-close">关闭</button>
+        </div>
+      </div>
+    </div>
+
+    <header class="top">
+      <h1>卡丘大转盘</h1>
+      <button class="go" id="go" type="button">START</button>
+    </header>
+    
+    
+    <div class="arena">
+      <section class="side atk">
+        <h2>进攻方</h2>
+        <div class="hero-row">
+          <div class="gauge char-hit" id="atk-char" title="点击换角色">
+            <div class="lab">角色</div>
+            <div class="dial lg" style="--c:var(--atk)">
+              <div class="ticks"></div><div class="ring"></div><div class="face"></div>
+            </div>
+            <div class="gname">—</div>
+            <div class="gmeta"></div>
+          </div>
+          <div class="gauge" id="atk-aw">
+            <div class="lab">觉醒 2 / 3</div>
+            <div class="dial sm" style="--c:var(--atk)">
+              <div class="ticks"></div><div class="ring"></div><div class="face"></div>
+            </div>
+            <div class="gname">—</div>
+            <div class="gmeta"></div>
+          </div>
+        </div>
+        <div class="loadout">
+          <div class="gauge mini" id="atk-sec"><div class="lab">副武器</div><div class="dial sm" style="--c:var(--atk)"><div class="ring"></div><div class="face"></div></div><div class="gname">—</div></div>
+          <div class="gauge mini" id="atk-mel"><div class="lab">近战</div><div class="dial sm" style="--c:var(--atk)"><div class="ring"></div><div class="face"></div></div><div class="gname">—</div></div>
+          <div class="gauge mini" id="atk-g1"><div class="lab">道具1</div><div class="dial sm" style="--c:var(--atk)"><div class="ring"></div><div class="face"></div></div><div class="gname">—</div></div>
+          <div class="gauge mini" id="atk-g2"><div class="lab">道具2</div><div class="dial sm" style="--c:var(--atk)"><div class="ring"></div><div class="face"></div></div><div class="gname">—</div></div>
+        </div>
+      </section>
+      <section class="side def">
+        <h2>防守方</h2>
+        <div class="hero-row">
+          <div class="gauge char-hit" id="def-char" title="点击换角色">
+            <div class="lab">角色</div>
+            <div class="dial lg" style="--c:var(--def)">
+              <div class="ticks"></div><div class="ring"></div><div class="face"></div>
+            </div>
+            <div class="gname">—</div>
+            <div class="gmeta"></div>
+          </div>
+          <div class="gauge" id="def-aw">
+            <div class="lab">觉醒 2 / 3</div>
+            <div class="dial sm" style="--c:var(--def)">
+              <div class="ticks"></div><div class="ring"></div><div class="face"></div>
+            </div>
+            <div class="gname">—</div>
+            <div class="gmeta"></div>
+          </div>
+        </div>
+        <div class="loadout">
+          <div class="gauge mini" id="def-sec"><div class="lab">副武器</div><div class="dial sm" style="--c:var(--def)"><div class="ring"></div><div class="face"></div></div><div class="gname">—</div></div>
+          <div class="gauge mini" id="def-mel"><div class="lab">近战</div><div class="dial sm" style="--c:var(--def)"><div class="ring"></div><div class="face"></div></div><div class="gname">—</div></div>
+          <div class="gauge mini" id="def-g1"><div class="lab">道具1</div><div class="dial sm" style="--c:var(--def)"><div class="ring"></div><div class="face"></div></div><div class="gname">—</div></div>
+          <div class="gauge mini" id="def-g2"><div class="lab">道具2</div><div class="dial sm" style="--c:var(--def)"><div class="ring"></div><div class="face"></div></div><div class="gname">—</div></div>
+        </div>
+      </section>
+    </div>
+    <section class="results">
+      <table>
+        <thead>
+          <tr>
+            <th>阵营</th><th>角色名称</th><th>觉醒2或3</th><th>副武器</th><th>近战武器</th><th>道具1</th><th>道具2</th>
+          </tr>
+        </thead>
+        <tbody id="result-body">
+          <tr class="atk"><td>进攻方</td><td colspan="6">等待抽取</td></tr>
+          <tr class="def"><td>防守方</td><td colspan="6">等待抽取</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    
+    <div class="hint" id="status" hidden></div>
+  </div>
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

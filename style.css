@@ -1,0 +1,178 @@
+/* 卡拉彼丘转盘 — 定稿：可拉伸 + 大字 */
+:root{
+  --atk:#c62828;
+  --def:#1565c0;
+  --text:#1c2636;
+  --muted:#5a6578;
+  --line:rgba(20,40,70,.12);
+  --face:#f3f6fb;
+  --fs-title:clamp(22px, 2.6vmin, 34px);
+  --fs-h2:clamp(16px, 2.1vmin, 22px);
+  --fs-lab:clamp(14px, 1.7vmin, 18px);
+  --fs-name:clamp(16px, 2vmin, 22px);
+  --fs-gear:clamp(15px, 1.8vmin, 20px);
+  --fs-table:clamp(15px, 1.8vmin, 20px);
+  --dial-lg:clamp(140px, 26vmin, 280px);
+  --dial-sm:clamp(72px, 12vmin, 120px);
+  --dial-mini:clamp(84px, 13.5vmin, 140px);
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#fff;color:var(--text);
+  font-family:"Source Han Sans SC","Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif}
+.app{
+  height:100%;min-height:100%;max-width:none;margin:0;
+  padding:clamp(8px,1.4vmin,18px) clamp(10px,1.8vmin,22px);
+  display:flex;flex-direction:column;gap:clamp(8px,1.2vmin,14px);color:var(--text)
+}
+.top{display:flex;align-items:center;justify-content:space-between;gap:16px;flex:0 0 auto}
+h1{margin:0;font-size:var(--fs-title);letter-spacing:.12em;font-weight:800;color:#122033}
+h1 span{color:var(--atk)}
+.switcher{display:none}
+.center-col{display:none}
+.action-bar{display:none}
+
+.arena{flex:1 1 auto;min-height:0;display:grid;grid-template-columns:1fr 1fr;gap:clamp(8px,1.4vmin,16px);align-items:stretch}
+.side{
+  position:relative;overflow:hidden;isolation:isolate;
+  display:flex;flex-direction:column;min-height:0;
+  background:rgba(255,255,255,.22);border:1px solid var(--line);border-radius:16px;
+  padding:clamp(8px,1.2vmin,14px);box-shadow:0 8px 20px rgba(20,40,70,.06)
+}
+.side::before{
+  content:"";position:absolute;inset:0;pointer-events:none;z-index:0;
+  background-position:center;background-repeat:no-repeat;background-size:cover;opacity:.38
+}
+.side.atk::before{background-image:url("assets/bg/scissors-pic.png")}
+.side.def::before{background-image:url("assets/bg/pus-pic.png")}
+.side > *{position:relative;z-index:1}
+.side.atk{border-color:rgba(198,40,40,.28)}
+.side.def{border-color:rgba(21,101,192,.28)}
+.side h2{margin:0 0 .4em;font-size:var(--fs-h2);letter-spacing:.2em;flex:0 0 auto}
+.side.atk h2{color:var(--atk)}
+.side.def h2{color:var(--def)}
+
+.hero-row{flex:1 1 auto;min-height:0;display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,.7fr);gap:clamp(6px,1vmin,12px);margin-bottom:clamp(6px,1vmin,12px);align-items:stretch}
+.hero-row .gauge{
+  display:grid;grid-template-rows:auto var(--dial-lg) auto auto;
+  justify-items:center;align-items:center;
+  background:rgba(255,255,255,.58);border:1px solid var(--line);border-radius:14px;
+  padding:clamp(6px,.8vmin,12px);text-align:center;min-width:0;min-height:0
+}
+.hero-row .lab{grid-row:1}
+.hero-row .dial{grid-row:2;align-self:center;margin:0}
+.hero-row .gname{grid-row:3;margin-top:0}
+.hero-row .gmeta{grid-row:4;min-height:1.2em}
+.gauge{
+  background:rgba(255,255,255,.58);border:1px solid var(--line);border-radius:14px;
+  padding:clamp(6px,.8vmin,12px);text-align:center;
+  display:flex;flex-direction:column;align-items:center;min-width:0;min-height:0
+}
+.gauge .lab{font-size:var(--fs-lab);letter-spacing:.12em;color:var(--muted);margin-bottom:.35em;font-weight:700}
+.dial{--c:var(--atk);width:var(--dial-lg);max-width:86%;aspect-ratio:1;margin:0 auto;position:relative;border-radius:50%;flex:0 0 auto}
+.dial.lg{width:var(--dial-lg)}
+.dial.sm{width:var(--dial-sm)}
+.mini .dial.sm{width:var(--dial-mini)}
+.side.atk .dial{--c:var(--atk)}
+.side.def .dial{--c:var(--def)}
+.ring{
+  position:absolute;inset:0;border-radius:50%;
+  background:conic-gradient(from 0deg, var(--c), transparent 42%, var(--c) 70%, transparent);
+  mask:radial-gradient(farthest-side,transparent calc(100% - 8px),#000 calc(100% - 7px));
+  -webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 8px),#000 calc(100% - 7px));
+}
+.dial.spinning .ring{animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.face{
+  position:absolute;inset:10%;border-radius:50%;overflow:hidden;
+  background:var(--face);border:2px solid rgba(20,40,70,.1);
+  display:grid;place-items:center;color:var(--text)
+}
+.face img{width:100%;height:100%;object-fit:cover;object-position:center top}
+.mini .face{background:#fff;padding:6%}
+.dial.locking .face{animation:lockpop .42s cubic-bezier(.2,.8,.2,1)}
+@keyframes lockpop{0%{transform:scale(1.08)}100%{transform:scale(1)}}
+.mono{width:100%;height:100%;display:grid;place-items:center;font-size:clamp(22px,4vmin,40px);font-weight:800;color:var(--text)}
+.gear-txt{font-size:var(--fs-gear);font-weight:800;letter-spacing:.03em;padding:6%;line-height:1.25;color:#122033;text-align:center}
+.aw-num{font-size:clamp(26px,5vmin,44px);line-height:1;padding:0}
+.gname{margin-top:.4em;font-size:var(--fs-name);font-weight:700;color:#122033}
+.gmeta{font-size:clamp(12px,1.4vmin,16px);color:var(--muted)}
+.loadout{flex:0 0 auto;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(6px,1vmin,10px)}
+.mini .gname{display:none}
+.char-hit{cursor:pointer}
+.char-hit:hover{outline:1px solid rgba(20,40,70,.2)}
+.char-hit .lab::after{content:" · 点击换人";letter-spacing:.06em;font-size:.85em;opacity:.7}
+
+.go{
+  min-width:8em;border-radius:6px;padding:.55em 1.6em;cursor:pointer;
+  background:#fff;color:#1c2636;border:1px solid #c5ceda;
+  font-family:Bahnschrift,"HarmonyOS Sans SC","Microsoft YaHei UI","Microsoft YaHei",sans-serif;
+  font-size:var(--fs-name);letter-spacing:.22em;font-weight:700;
+  font-variation-settings:"wght" 700;
+  text-transform:uppercase
+}
+.go:hover{background:#f3f6fa}
+.go.stop{background:#1c2636;color:#fff;border-color:#1c2636}
+.top .go{margin-left:auto}
+
+.results{flex:0 0 auto;background:rgba(255,255,255,.94);border:1px solid var(--line);border-radius:14px;overflow:auto}
+table{width:100%;border-collapse:collapse;font-size:var(--fs-table);color:var(--text)}
+th,td{padding:.55em .4em;text-align:center;border-bottom:1px solid var(--line);white-space:nowrap}
+th{color:var(--muted);font-size:.9em;letter-spacing:.08em;font-weight:600}
+tr.atk td:first-child{color:var(--atk);font-weight:800}
+tr.def td:first-child{color:var(--def);font-weight:800}
+tr.ready td{color:#122033;font-weight:600}
+.hint{display:none}
+#atk-aw .gname,#def-aw .gname,#atk-aw .gmeta,#def-aw .gmeta{visibility:hidden}
+
+/* 竖向：上下叠两栏 */
+@media (max-aspect-ratio: 4/5), (max-width: 820px){
+  .arena{grid-template-columns:1fr}
+  .hero-row{grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr)}
+  .loadout{grid-template-columns:repeat(4,minmax(0,1fr))}
+}
+@media (max-width: 560px){
+  .loadout{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .hero-row{grid-template-columns:1fr 1fr}
+  th,td{white-space:normal}
+}
+
+#atk-aw .dial.sm,#def-aw .dial.sm{width:clamp(110px, 20vmin, 200px)}
+
+.help-mask{
+  position:fixed;inset:0;z-index:50;
+  background:rgba(255,255,255,.58);
+  display:flex;align-items:center;justify-content:center;
+  padding:20px
+}
+.help-mask.off{display:none}
+.help-card{
+  position:relative;overflow:hidden;
+  width:min(560px,92vw);min-height:240px;
+  background:#fff;border:1px solid rgba(20,40,70,.14);border-radius:16px;
+  box-shadow:0 16px 40px rgba(20,40,70,.14);color:#1c2636;
+  font-family:SimHei,"黑体","Microsoft YaHei UI","Microsoft YaHei",sans-serif
+}
+.help-bg{
+  position:absolute;right:-8%;top:50%;transform:translateY(-50%);
+  height:130%;width:auto;max-width:none;opacity:.55;
+  pointer-events:none;user-select:none;
+  -webkit-mask-image:linear-gradient(to right,transparent 0%,transparent 18%,rgba(0,0,0,.35) 55%,rgba(0,0,0,.7) 100%);
+  mask-image:linear-gradient(to right,transparent 0%,transparent 18%,rgba(0,0,0,.35) 55%,rgba(0,0,0,.7) 100%)
+}
+.help-copy{
+  position:relative;z-index:1;
+  width:68%;padding:28px 22px 22px 28px;
+  display:flex;flex-direction:column;align-items:flex-start;gap:14px
+}
+.help-card h2{
+  margin:0;font-size:30px;letter-spacing:.18em;font-weight:800;color:#122033
+}
+.help-copy p{
+  margin:0;font-size:20px;line-height:1.7;color:#3a4556;letter-spacing:.04em;font-weight:800
+}
+.help-close{
+  margin-top:6px;min-width:7em;border-radius:8px;padding:.55em 1.5em;cursor:pointer;
+  background:#fff;color:#1c2636;border:1px solid #c5ceda;font-size:17px;font-weight:700;
+  font-family:inherit
+}
+.help-close:hover{background:#f3f6fa}

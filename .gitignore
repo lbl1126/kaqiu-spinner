@@ -1,0 +1,10 @@
+*.exe
+*.ico
+dist/
+build/
+__pycache__/
+*.spec
+.DS_Store
+Thumbs.db
+extracted-icons/
+kpq-build/

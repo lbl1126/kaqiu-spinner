@@ -1,23 +1,37 @@
 # 卡丘大转盘
 
-卡拉彼丘（Strinova）爆破模式攻防配装随机转盘。本地打开 `index.html`，或用 `launcher.py` 打成 Windows exe。
+卡拉彼丘（[Strinova](https://www.strinova.com/)）爆破模式用的攻防配装转盘：一次抽出进攻、防守两套人，以及觉醒、副武器、近战和两个道具。
 
-数据版本见 `data.js`。如何加新角色 / 新武器并重打包，见 [后续更新说明.md](后续更新说明.md)。
+数据按 **26SP4** 收录。打开 `index.html` 就能玩。
 
-## 本地预览
+<p align="center">
+  <img src="icon1.jpg" width="160" alt="卡丘大转盘">
+</p>
 
-用浏览器打开 `index.html`（建议用本地文件或任意静态服务器）。
+## 怎么用
 
-## 打包 exe
+1. 点 **START** 开转，再点 **STOP** 锁定两边配装  
+2. 点角色头像换人（觉醒跟着换，枪和道具不动）
 
-需要 Windows、Python 3.11、pywebview、PyInstaller。不要给 `webview.create_window` 传 `icon=`（当前版本不支持）。图标用 Pillow 把 `icon1.jpg` 转成 `icon.ico` 后再：
+进攻只抽剪刀手 + 乌尔比诺，防守只抽欧泊 + 乌尔比诺。两边不会抽到同一个人。觉醒只出 2 或 3。每边两个道具不重复。主武器跟角色走，不另抽。晶源体不进池。
 
-```bat
-pyinstaller --noconfirm --clean --onefile --windowed --name KaqiuSpinner --icon icon.ico --add-data "index.html;." --add-data "app.js;." --add-data "data.js;." --add-data "style.css;." --add-data "icon.jpg;." --add-data "assets;assets" launcher.py
-```
+## 仓库里有什么
 
-## 规则摘要
+| 文件 | 作用 |
+| --- | --- |
+| `index.html` / `app.js` / `style.css` | 页面和转盘逻辑 |
+| `data.js` | 角色、觉醒、副武器、近战、道具名单 |
+| `assets/portraits/` | 角色头像 |
+| `assets/bg/` | 进攻 / 防守底图 |
+| `launcher.py` | 打 Windows 窗口版 |
+| [后续更新说明.md](后续更新说明.md) | 加新角色、新枪之后怎么改、怎么重打包 |
 
-- 进攻：剪刀手 + 乌尔比诺；防守：欧泊 + 乌尔比诺
-- 觉醒 2 / 3 互斥；两边道具不重复；主武器随角色
-- 晶源体不进池
+## 自己改名单
+
+新角色加在 `data.js` 的 `characters` 里，头像放到 `assets/portraits/<id>.png`。新副武器 / 近战 / 道具加对应数组即可。不要编官方没有的名字。
+
+只改这些文件的话，刷新 `index.html` 就能看到。若还要更新 exe，按 [后续更新说明.md](后续更新说明.md) 重打；exe 是打包进去的快照，不会自动读旁边的 js。
+
+## 许可
+
+个人练习项目，角色与素材版权归卡拉彼丘 / 官方所有。
